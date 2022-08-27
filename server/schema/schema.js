@@ -9,6 +9,17 @@ const {
 } = require('graphql');
 
 //Client type with uppercase convention
+const ClientType = new GraphQLObjectType({
+  name: 'Client',
+  fields: () => ({
+    id: { type: GraphQLID },
+    name: { type: GraphQLString },
+    email: { type: GraphQLString },
+    phone: { type: GraphQLString },
+  }),
+});
+
+//Client type with uppercase convention
 const ProjectType = new GraphQLObjectType({
   name: 'Project',
   fields: () => ({
@@ -19,20 +30,9 @@ const ProjectType = new GraphQLObjectType({
     client: {
       type: ClientType,
       resolve(parent, args) {
-        clients.find((client) => client.id === parent.clientId);
+        return clients.find((client) => client.id === parent.id);
       },
     },
-  }),
-});
-
-//Client type with uppercase convention
-const ClientType = new GraphQLObjectType({
-  name: 'Client',
-  fields: () => ({
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-    email: { type: GraphQLString },
-    phone: { type: GraphQLString },
   }),
 });
 
